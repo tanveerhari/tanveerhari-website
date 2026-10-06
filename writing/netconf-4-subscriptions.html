@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Subscriptions and notifications · Tanveer Singh</title>
+<meta name="description" content="Why a good architecture absorbs RFC 5277 with almost no change, and the one place it should bend.">
+<meta property="og:title" content="Subscriptions and notifications · Tanveer Singh">
+<meta property="og:description" content="Why a good architecture absorbs RFC 5277 with almost no change, and the one place it should bend.">
+<meta property="og:type" content="website">
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Noto+Serif+Gurmukhi:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="brand" href="../index.html" aria-label="Tanveer Singh, home"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><g stroke="var(--accent)" stroke-width="1.2"><path d="M5 9 L14 5 L22 12 L29 7 M22 12 L19 22"/></g><g fill="var(--accent)"><circle cx="5" cy="9" r="1.8"/><circle cx="14" cy="5" r="1.4"/><circle cx="22" cy="12" r="2.2"/><circle cx="29" cy="7" r="1.4"/><circle cx="19" cy="22" r="1.6"/></g><g stroke="var(--ink)" stroke-width="1.2"><path d="M15 31 L19 27 L23 31 Z"/><path d="M12 31 L26 31"/></g></svg><span class="logo"><span class="logo-en" aria-hidden="true">Tanveer Singh</span><span class="logo-pa" lang="pa" aria-hidden="true">ਤਨਵੀਰ ਸਿੰਘ</span></span></a>
+<nav class="nav" aria-label="Main"><a href="../projects.html">Projects</a><a href="../writing/index.html" aria-current="page">Writing</a><a href="../other-stuff.html">Other Stuff</a><a href="../about.html">About</a><a href="../work-with-me.html">Work with me</a></nav>
+</div></header>
+<main id="main" class="wrap">
+<header class="article-head"><p class="eyebrow">Series · Designing a Netconf Manager · Part 4 of 4</p><h1>Subscriptions and notifications</h1><p class="lede">Why a good architecture absorbs RFC 5277 with almost no change, and the one place it should bend.</p><p class="meta">Oct 2026 · 2 min read</p></header>
+<div class="article-layout"><article class="prose"><p>RFC 5277 lets a client subscribe to event notifications from a NETCONF server. The server confirms the subscription and then sends notifications as events occur, until the session ends or the subscription stops for some other reason. A subscription cannot be changed once created.</p>
+<p>In simpler words: you subscribe to a node for some or all events, and the node tells you whenever one happens.</p>
+<h2>What changes</h2>
+<p>Very little, which is the point of the earlier design.</p>
+<ul><li><strong>Protocol</strong>: two new RPCs, create-subscription (sent to the node) and notification (received from it). Both join the RPC family and the operations enumeration.</li><li><strong>Session</strong>: either extend the session class and override what changes, or fold subscription handling into the same class. It depends on which is more practical.</li><li><strong>Everything else</strong>: nothing, structurally.</li></ul>
+<h2>The one place to bend</h2>
+<p>Notifications are a different kind of traffic. They arrive unasked, and they should not wait behind a slow edit-config. Under load, it pays to allow two connections per node at all times: one for operations, one dedicated to notifications.</p>
+<figure class="fig" role="group" aria-label="Subscriptions and notifications"><svg viewBox="0 0 760 190" role="img" aria-label="Two connections per node: one for operations, one for notifications"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="d-ah" d="M0 0 L10 5 L0 10 z"/></marker></defs><rect class="d-box" x="30" y="60" width="170" height="90" rx="6"/><text class="d-t" x="115.0" y="110.0" text-anchor="middle">Netconf Manager</text><rect class="d-box" x="560" y="60" width="170" height="90" rx="6"/><text class="d-t" x="645.0" y="110.0" text-anchor="middle">Node</text><line class="d-l" x1="204" y1="85" x2="556" y2="85" marker-end="url(#ah)" marker-start="url(#ah)"/><text class="d-s" x="380" y="76" text-anchor="middle">connection 1 · operations (r)</text><line class="d-l" x1="556" y1="128" x2="204" y2="128" marker-end="url(#ah)"/><text class="d-s" x="380" y="148" text-anchor="middle">connection 2 · notifications (n) after create-subscription</text></svg><figcaption>Subscriptions (RFC 5277) add two RPCs. Under load, a second connection per node keeps notifications from queueing behind operations.</figcaption></figure>
+<h2>Closing thoughts</h2>
+<p>The series stayed away from depth on every topic and kept to structure and sequence. That leaves designers and implementers room to go deeper where their own requirements take them. If you have a better solution than the one here, I would love to read it.</p>
+<blockquote><p>"Wisdom is not a product of schooling but of the lifelong attempt to acquire it." Albert Einstein</p></blockquote>
+<p>References: <a href="https://tools.ietf.org/html/rfc6241">RFC 6241, NETCONF</a> · <a href="https://tools.ietf.org/html/rfc5277">RFC 5277, NETCONF event notifications</a></p></article><aside class="margin"><div class="series-box"><p class="eyebrow">The series</p><p class="series-name">Designing a Netconf Manager</p><ol><li><a href="netconf-1-the-shape-of-the-problem.html">The shape of the problem</a></li><li><a href="netconf-2-the-library.html">The library</a></li><li><a href="netconf-3-the-service.html">The service</a></li><li aria-current="page"><a href="netconf-4-subscriptions.html">Subscriptions and notifications</a></li></ol></div></aside></div><nav class="pager" aria-label="Series"><a href="netconf-3-the-service.html">← Part 3: The service</a><a href="index.html#series">All series →</a></nav>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div class="foot-cols">
+<p class="motto"><span>Slow, deliberate craftsmanship.</span></p>
+<nav class="foot-nav" aria-label="The Architect"><p class="eyebrow">The Architect</p><a href="../projects.html">Projects</a><a href="../writing/index.html#architecture">Architecture writing</a><a href="https://mviaso.com">Mviaso</a></nav>
+<nav class="foot-nav" aria-label="The Writer"><p class="eyebrow">The Writer</p><a href="../writing/index.html#essays">Essays</a><a href="../other-stuff.html">Poems and stories</a><a href="../about.html">About</a></nav>
+<nav class="foot-nav" aria-label="Contact"><p class="eyebrow">Contact</p><a href="mailto:tanveerhari@gmail.com">tanveerhari@gmail.com</a><a href="https://www.linkedin.com/in/tanveer-singh-6367a295/">LinkedIn</a><a href="https://github.com/tanveerhari">GitHub</a></nav>
+</div>
+<p class="meta">© 2026 Tanveer Singh · Chandigarh</p>
+</div></footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

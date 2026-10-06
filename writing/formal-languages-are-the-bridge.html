@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Formal languages are the bridge between programming and intelligence · Tanveer Singh</title>
+<meta name="description" content="Formal languages are the bridge between programming and intelligence">
+<meta property="og:title" content="Formal languages are the bridge between programming and intelligence · Tanveer Singh">
+<meta property="og:description" content="Formal languages are the bridge between programming and intelligence">
+<meta property="og:type" content="website">
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Noto+Serif+Gurmukhi:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="brand" href="../index.html" aria-label="Tanveer Singh, home"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><g stroke="var(--accent)" stroke-width="1.2"><path d="M5 9 L14 5 L22 12 L29 7 M22 12 L19 22"/></g><g fill="var(--accent)"><circle cx="5" cy="9" r="1.8"/><circle cx="14" cy="5" r="1.4"/><circle cx="22" cy="12" r="2.2"/><circle cx="29" cy="7" r="1.4"/><circle cx="19" cy="22" r="1.6"/></g><g stroke="var(--ink)" stroke-width="1.2"><path d="M15 31 L19 27 L23 31 Z"/><path d="M12 31 L26 31"/></g></svg><span class="logo"><span class="logo-en" aria-hidden="true">Tanveer Singh</span><span class="logo-pa" lang="pa" aria-hidden="true">ਤਨਵੀਰ ਸਿੰਘ</span></span></a>
+<nav class="nav" aria-label="Main"><a href="../projects.html">Projects</a><a href="../writing/index.html" aria-current="page">Writing</a><a href="../other-stuff.html">Other Stuff</a><a href="../about.html">About</a><a href="../work-with-me.html">Work with me</a></nav>
+</div></header>
+<main id="main" class="wrap">
+<header class="article-head"><p class="eyebrow">Writing · Architecture</p><h1>Formal languages are the bridge between programming and intelligence</h1><p class="meta">2026 · 2 min read</p></header>
+<div class="article-layout"><article class="prose"><p>In 2023 I wrote a note to myself that formal languages were the bridge between programming and intelligent systems. I was speculating. Three years on, the pattern is showing up in real production systems, and the speculation deserves a more careful defense.</p>
+<p>Here's the argument, cleaner than I could state it then:</p>
+<p>LLMs are excellent at generating natural language and code. They are terrible at guaranteeing anything about what they generate. This is a structural property, not a temporary limitation. A probabilistic model cannot make deterministic promises.</p>
+<p>Formal languages are the opposite. A well-defined grammar has validated syntax, deterministic parsing, provable properties. It can guarantee what it accepts. It cannot generate creatively.</p>
+<p>Combine them and the properties align. The LLM proposes. The formal grammar disposes. The pattern:</p>
+<ul><li>A DSL captures the rules of the domain, including its constraints, its vocabulary, its structural laws</li><li>The LLM proposes candidate solutions in that DSL</li><li>The compiler rejects malformed proposals before they touch anything downstream</li><li>Only valid proposals reach production</li></ul>
+<p>This is not theoretical. It's what durable AI-assisted systems actually look like when you strip away the marketing. Not "trust the model" and not "avoid the model", but "let the model propose, let the grammar dispose".</p>
+<p>The interesting corollary is that DSLs are now a strategic asset in a way they weren't ten years ago. A well-designed domain-specific language is the interface between an unreliable generator and a system that needs guarantees. If you have one, you can absorb model improvements as they come. If you don't, every improvement to the underlying model requires re-engineering the guardrails.</p>
+<p>For anyone building domain-specific AI products right now, the highest-leverage engineering investment isn't better prompts or fancier retrieval. It's a real DSL that expresses the domain's rules in a form the compiler can enforce.</p>
+<p>Formal languages were always the bridge. It just took the current era of AI to make the bridge load-bearing.</p></article></div><nav class="pager" aria-label="More writing"><a href="deadlines-as-complexity-control.html">← Deadlines as complexity control</a><a href="the-it-jobs-moderation-tax.html">The IT job’s moderation tax →</a></nav>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div class="foot-cols">
+<p class="motto"><span>Slow, deliberate craftsmanship.</span></p>
+<nav class="foot-nav" aria-label="The Architect"><p class="eyebrow">The Architect</p><a href="../projects.html">Projects</a><a href="../writing/index.html#architecture">Architecture writing</a><a href="https://mviaso.com">Mviaso</a></nav>
+<nav class="foot-nav" aria-label="The Writer"><p class="eyebrow">The Writer</p><a href="../writing/index.html#essays">Essays</a><a href="../other-stuff.html">Poems and stories</a><a href="../about.html">About</a></nav>
+<nav class="foot-nav" aria-label="Contact"><p class="eyebrow">Contact</p><a href="mailto:tanveerhari@gmail.com">tanveerhari@gmail.com</a><a href="https://www.linkedin.com/in/tanveer-singh-6367a295/">LinkedIn</a><a href="https://github.com/tanveerhari">GitHub</a></nav>
+</div>
+<p class="meta">© 2026 Tanveer Singh · Chandigarh</p>
+</div></footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

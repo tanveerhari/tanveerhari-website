@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>An end-to-end test harness · Tanveer Singh</title>
+<meta name="description" content="Simulated devices, a broker in the middle, and a framework that checks every hop: how to automate an IoT system’s tests.">
+<meta property="og:title" content="An end-to-end test harness · Tanveer Singh">
+<meta property="og:description" content="Simulated devices, a broker in the middle, and a framework that checks every hop: how to automate an IoT system’s tests.">
+<meta property="og:type" content="website">
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Noto+Serif+Gurmukhi:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="brand" href="../index.html" aria-label="Tanveer Singh, home"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><g stroke="var(--accent)" stroke-width="1.2"><path d="M5 9 L14 5 L22 12 L29 7 M22 12 L19 22"/></g><g fill="var(--accent)"><circle cx="5" cy="9" r="1.8"/><circle cx="14" cy="5" r="1.4"/><circle cx="22" cy="12" r="2.2"/><circle cx="29" cy="7" r="1.4"/><circle cx="19" cy="22" r="1.6"/></g><g stroke="var(--ink)" stroke-width="1.2"><path d="M15 31 L19 27 L23 31 Z"/><path d="M12 31 L26 31"/></g></svg><span class="logo"><span class="logo-en" aria-hidden="true">Tanveer Singh</span><span class="logo-pa" lang="pa" aria-hidden="true">ਤਨਵੀਰ ਸਿੰਘ</span></span></a>
+<nav class="nav" aria-label="Main"><a href="../projects.html">Projects</a><a href="../writing/index.html" aria-current="page">Writing</a><a href="../other-stuff.html">Other Stuff</a><a href="../about.html">About</a><a href="../work-with-me.html">Work with me</a></nav>
+</div></header>
+<main id="main" class="wrap">
+<header class="article-head"><p class="eyebrow">Series · Testing and building for the Internet of Things · Part 2 of 3</p><h1>An end-to-end test harness</h1><p class="lede">Simulated devices, a broker in the middle, and a framework that checks every hop: how to automate an IoT system’s tests.</p><p class="meta">Oct 2026 · 3 min read</p></header>
+<div class="article-layout"><article class="prose"><p>Take a typical small IoT system. A sensor notices something in the physical world. A device reacts, perhaps a camera that captures an image. A service processes what arrived, maybe with machine learning, and decides. Something tells a person: a web dashboard, an API call, an email. In between, a broker such as MQTT carries the messages.</p>
+<p>Testing it with conventional strategies is hard, for three reasons that show up almost every time.</p>
+<ul><li><strong>Hardware and network.</strong> Real devices need a dedicated lab.</li><li><strong>Mixed technologies.</strong> IoT, AI, web and email, each with its own testing habits.</li><li><strong>Mixed protocols.</strong> The server may speak MQTT to devices and SMTP or POP3 to mail at the same time.</li></ul>
+<h2>Plan by feature and technology</h2>
+<p>Start by naming every part of the system and the technology it uses, then choose a strategy per part. The result is a test plan that looks more like a map than a list.</p>
+<h2>The harness</h2>
+<figure class="fig" role="group" aria-label="End-to-end IoT test harness"><svg viewBox="0 0 760 320" role="img" aria-label="Test harness: simulated devices publish to the broker, the framework subscribes and asserts, outputs are verified"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="d-ah" d="M0 0 L10 5 L0 10 z"/></marker></defs><rect class="d-soft" x="10" y="30" width="170" height="150" rx="6"/><text class="d-t" x="95.0" y="110.0" text-anchor="middle"></text><text class="d-t" x="95" y="54" text-anchor="middle">Simulated devices</text><rect class="d-box" x="25" y="66" width="140" height="28" rx="6"/><text class="d-t" x="95.0" y="85.0" text-anchor="middle">Sensor</text><rect class="d-box" x="25" y="102" width="140" height="28" rx="6"/><text class="d-t" x="95.0" y="121.0" text-anchor="middle">Camera</text><rect class="d-box" x="25" y="138" width="140" height="28" rx="6"/><text class="d-t" x="95.0" y="157.0" text-anchor="middle">Meter</text><rect class="d-box" x="300" y="70" width="150" height="70" rx="6"/><text class="d-t" x="375.0" y="110.0" text-anchor="middle">MQTT broker</text><rect class="d-box" x="560" y="30" width="190" height="70" rx="6"/><text class="d-t" x="655.0" y="63.0" text-anchor="middle">System under test</text><text class="d-s" x="655.0" y="80.0" text-anchor="middle">services, rules, AI</text><rect class="d-box" x="560" y="120" width="190" height="60" rx="6"/><text class="d-t" x="655.0" y="148.0" text-anchor="middle">Outputs</text><text class="d-s" x="655.0" y="165.0" text-anchor="middle">API · web · email</text><line class="d-l" x1="182" y1="105" x2="296" y2="105" marker-end="url(#ah)"/><text class="d-s" x="239" y="96" text-anchor="middle">publish</text><line class="d-l" x1="452" y1="92" x2="556" y2="70" marker-end="url(#ah)" marker-start="url(#ah)"/><line class="d-l" x1="655" y1="102" x2="655" y2="116" marker-end="url(#ah)"/><rect class="d-box" x="240" y="220" width="280" height="70" rx="6"/><text class="d-t" x="380.0" y="253.0" text-anchor="middle">Test framework</text><text class="d-s" x="380.0" y="270.0" text-anchor="middle">Java · TestNG · protocol library</text><line class="d-l" x1="375" y1="216" x2="375" y2="144" marker-end="url(#ah)" marker-start="url(#ah)"/><text class="d-s" x="388" y="184" text-anchor="start">subscribe, assert</text><path class="d-l" d="M 655 182 L 655 255 L 524 255" marker-end="url(#ah)"/><text class="d-s" x="668" y="240" text-anchor="start">verify</text><path class="d-l" d="M 236 255 L 95 255 L 95 184" marker-end="url(#ah)"/><text class="d-s" x="165" y="246" text-anchor="middle">mock data</text><text class="d-s" x="380" y="310" text-anchor="middle">HTML report · CI job</text></svg><figcaption>The harness sits around the broker. Simulated devices make the lab repeatable; the framework checks the data on every hop and the outputs at the end.</figcaption></figure>
+<ul><li><strong>A dedicated lab</strong> that covers the whole workflow, end to end.</li><li><strong>Simulated devices</strong> that publish and consume on the broker using MQTT and ordinary libraries (Java works well). They make the lab repeatable and let you create situations real devices rarely produce.</li><li><strong>A modular, protocol-based IoT library</strong>, reusable for testing other IoT systems, not just this one.</li><li><strong>API and web automation</strong> for the software around the hardware.</li><li><strong>Generated test data</strong> for edge cases, especially for the AI features, whose failures live at the edges.</li><li><strong>Mail libraries</strong> to automate the checks on email features.</li><li><strong>Configuration, HTML reports and a CI job</strong> (TestNG and Jenkins, for example), so the suite runs on every change.</li></ul>
+<h2>What each test checks</h2>
+<p>The tests follow the data along its path:</p>
+<ol><li>the sensor is broadcasting;</li><li>the right value arrives when an object is in place;</li><li>the device acts when it should;</li><li>the processing extracts what it should;</li><li>the decision is correct for the input;</li><li>the person is notified.</li></ol>
+<p>Each step is an assertion on a message the framework can see on the broker, or an output it can read.</p>
+<h2>What it buys</h2>
+<p>A full regression suite for every feature, high automated coverage, faster development and delivery, and a secure environment for testing systems that must stay confidential.</p>
+<h2>Where it goes next</h2>
+<p>The same harness grows with the system: smarter detection, retrying a capture when the first one is poor, configuration instead of code, moving heavier processing onto the IoT network, identity checks that double as login, and, always, more security.</p>
+<p>Next: <a href="iot-3-edge-ai-attendance.html">an edge AI system</a>.</p></article><aside class="margin"><div class="series-box"><p class="eyebrow">The series</p><p class="series-name">Testing and building for the Internet of Things</p><ol><li><a href="iot-1-why-iot-is-hard-to-test.html">Why IoT is hard to test</a></li><li aria-current="page"><a href="iot-2-an-end-to-end-test-harness.html">An end-to-end test harness</a></li><li><a href="iot-3-edge-ai-attendance.html">Edge AI in the physical world</a></li></ol></div></aside></div><nav class="pager" aria-label="Series"><a href="iot-1-why-iot-is-hard-to-test.html">← Part 1: Why IoT is hard to test</a><a href="iot-3-edge-ai-attendance.html">Part 3: Edge AI in the physical world →</a></nav>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div class="foot-cols">
+<p class="motto"><span>Slow, deliberate craftsmanship.</span></p>
+<nav class="foot-nav" aria-label="The Architect"><p class="eyebrow">The Architect</p><a href="../projects.html">Projects</a><a href="../writing/index.html#architecture">Architecture writing</a><a href="https://mviaso.com">Mviaso</a></nav>
+<nav class="foot-nav" aria-label="The Writer"><p class="eyebrow">The Writer</p><a href="../writing/index.html#essays">Essays</a><a href="../other-stuff.html">Poems and stories</a><a href="../about.html">About</a></nav>
+<nav class="foot-nav" aria-label="Contact"><p class="eyebrow">Contact</p><a href="mailto:tanveerhari@gmail.com">tanveerhari@gmail.com</a><a href="https://www.linkedin.com/in/tanveer-singh-6367a295/">LinkedIn</a><a href="https://github.com/tanveerhari">GitHub</a></nav>
+</div>
+<p class="meta">© 2026 Tanveer Singh · Chandigarh</p>
+</div></footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

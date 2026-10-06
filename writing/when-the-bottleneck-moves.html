@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>When the bottleneck moves: notes on consulting after LLMs · Tanveer Singh</title>
+<meta name="description" content="When the bottleneck moves: notes on consulting after LLMs">
+<meta property="og:title" content="When the bottleneck moves: notes on consulting after LLMs · Tanveer Singh">
+<meta property="og:description" content="When the bottleneck moves: notes on consulting after LLMs">
+<meta property="og:type" content="website">
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Noto+Serif+Gurmukhi:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="brand" href="../index.html" aria-label="Tanveer Singh, home"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><g stroke="var(--accent)" stroke-width="1.2"><path d="M5 9 L14 5 L22 12 L29 7 M22 12 L19 22"/></g><g fill="var(--accent)"><circle cx="5" cy="9" r="1.8"/><circle cx="14" cy="5" r="1.4"/><circle cx="22" cy="12" r="2.2"/><circle cx="29" cy="7" r="1.4"/><circle cx="19" cy="22" r="1.6"/></g><g stroke="var(--ink)" stroke-width="1.2"><path d="M15 31 L19 27 L23 31 Z"/><path d="M12 31 L26 31"/></g></svg><span class="logo"><span class="logo-en" aria-hidden="true">Tanveer Singh</span><span class="logo-pa" lang="pa" aria-hidden="true">ਤਨਵੀਰ ਸਿੰਘ</span></span></a>
+<nav class="nav" aria-label="Main"><a href="../projects.html">Projects</a><a href="../writing/index.html" aria-current="page">Writing</a><a href="../other-stuff.html">Other Stuff</a><a href="../about.html">About</a><a href="../work-with-me.html">Work with me</a></nav>
+</div></header>
+<main id="main" class="wrap">
+<header class="article-head"><p class="eyebrow">Writing · Architecture</p><h1>When the bottleneck moves: notes on consulting after LLMs</h1><p class="meta">2026 · 5 min read</p></header>
+<div class="article-layout"><article class="prose"><p>I have spent enough time watching small teams outbuild large ones, in 2026, that I have stopped treating it as the exception. It is the new shape of the work.</p>
+<p>A pattern I keep seeing: a five-person team with strong domain experts and a thoughtful architect delivers, in eight weeks, what a 500-person firm had bid six months and a small fortune for. The five-person team did not invent a new methodology. They did not have a secret toolkit. They had two ingredients the big firm had structurally optimized away: deep domain understanding, and the willingness to let LLMs do the work that used to require fifteen engineers.</p>
+<p>I do not think most consulting buyers, or most consulting firms, have fully internalized what just happened to their business model.</p>
+<h2>What changed</h2>
+<p>The cost of producing software, in time, has collapsed.</p>
+<p>A senior engineer paired with a capable model produces, in a day, what a small team used to produce in a week. Not for every kind of work. Not at every quality bar. But the surface area is large enough that the economics have flipped.</p>
+<p>The cost of producing software, in money, has become a different question entirely. The old question was: how many engineers do we need, and which tech stack. The new question is: which model do we use, how many tokens will it cost, and who is sitting in the seat directing it.</p>
+<p>A practical consequence: instead of pitch decks and MVPs, it is now possible to demonstrate a minimum working module in the same time it used to take to write the proposal. The artefact has changed. The economics behind the artefact have changed with it.</p>
+<p>Per-resource-per-hour billing made sense when hours were the bottleneck. Hours are not the bottleneck anymore.</p>
+<h2>What did not change</h2>
+<p>What did not get cheaper is knowing what to build.</p>
+<p>LLMs are tools, and like every tool that has ever existed, they reward the wielder who knows what they are doing. A domain expert with an LLM moves ten times faster than they did a year ago. A generalist with an LLM produces confident-looking output that solves the wrong problem at impressive speed.</p>
+<p>The mistake the industry is making, in my reading, is concluding that LLMs reduce the importance of expertise. The opposite has happened. Expertise has become more valuable, not less, because every other input in the equation got cheaper. The leverage of being the right person in the seat has multiplied.</p>
+<p>In economic terms: when execution costs collapse, judgement costs rise. The bottleneck moved.</p>
+<h2>Where the bottleneck moved to</h2>
+<p>The new bottleneck is not engineering capacity. It is the chain of:</p>
+<ul><li>Did we understand the actual problem the customer has?</li><li>Did we frame it correctly?</li><li>Did we pick the right model, prompt, architecture, and abstraction for it?</li><li>Do we know what good looks like once the model produces a draft?</li><li>Do we know what to throw away?</li></ul>
+<p>Each of those is a judgement task. None of them is solved by adding headcount. Several of them are made worse by adding headcount, because judgement does not parallelize cleanly.</p>
+<p>This is why a five-person team of domain experts and a senior architect can outperform a 500-person firm on a specific engagement. The five-person team is unblocked at the bottleneck. The 500-person firm is paying overhead on the wrong constraint.</p>
+<h2>The two questions that have switched places</h2>
+<p>Two questions used to be central to scoping a software engagement:</p>
+<ol><li>How many engineers do we need?</li><li>Which technology stack?</li></ol>
+<p>Both assumed that engineers were the scarce input, and that the stack determined how productively those engineers could work.</p>
+<p>In 2026, both questions are downstream of two different ones:</p>
+<ol><li>Which LLM do we route which class of work to?</li><li>Whose domain knowledge and whose architectural judgement are in the seat?</li></ol>
+<p>If you cannot answer those two, picking a stack and counting heads is premature. It is solving for the wrong constraint.</p>
+<h2>What this means for buyers</h2>
+<p>If you are buying consulting in 2026, the question to ask is no longer "how many people will you put on this." That question used to correlate with seriousness; it now correlates with overhead.</p>
+<p>The questions that correlate with outcomes are different:</p>
+<ul><li>Who specifically will be doing the thinking, and what is their depth in our domain?</li><li>What does your team's working module look like in week two, not your presentation in week six?</li><li>How do you decide which work goes to a model and which to a human?</li><li>How do your fees relate to outcomes, not hours?</li></ul>
+<p>A small firm that answers those four well is worth more to you than a large firm with a hundred-page proposal and a billing sheet.</p>
+<h2>What this means for builders</h2>
+<p>If you run a small firm, the structural advantage you have is real. You should be explicit about it.</p>
+<p>Stop competing on headcount. You will lose. Compete on the things that have actually become scarce: domain depth, architectural judgement, the willingness to ship a working module in weeks instead of a proposal in months, and the discipline to use LLMs as force multipliers rather than as the entire product.</p>
+<p>The risk for a small firm is the opposite one: assuming that because LLMs are doing more of the typing, you can be lighter on expertise. You cannot. The expertise is what made the LLM useful in the first place. Take it out and you become every other LLM-wrapper, which is a market with no moat and a falling floor.</p>
+<h2>A short, fast window</h2>
+<p>I do not think this inversion will stay quiet for long. Big firms will adjust, in their own way. Buyer expectations will catch up. Pricing models will get reset.</p>
+<p>In the meantime, a window is open that I have not seen open in software services in twenty years. A small team of people who know what they are doing, paired with capable models, can produce work that used to require scale. The customer benefits. The team benefits. The middlemen do not.</p>
+<p>If your industry has not noticed yet, that is your window.</p>
+<h2>Closing</h2>
+<p>The sentence I keep coming back to as the cleanest frame for the present moment: when execution costs collapse, judgement costs rise.</p>
+<p>The consultancies that will compound through the next five years are the ones that hold judgement and domain expertise at the centre and treat LLMs as the cheapest part of the stack, rather than the most expensive part of the pitch.</p>
+<p>The ones that will not are the ones still selling hours.</p></article></div><nav class="pager" aria-label="More writing"><a href="inspiration-needs-attention.html">← Inspiration needs attention</a><a href="design-your-dsl-for-the-layperson.html">Design your DSL for the layperson, not the expert →</a></nav>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div class="foot-cols">
+<p class="motto"><span>Slow, deliberate craftsmanship.</span></p>
+<nav class="foot-nav" aria-label="The Architect"><p class="eyebrow">The Architect</p><a href="../projects.html">Projects</a><a href="../writing/index.html#architecture">Architecture writing</a><a href="https://mviaso.com">Mviaso</a></nav>
+<nav class="foot-nav" aria-label="The Writer"><p class="eyebrow">The Writer</p><a href="../writing/index.html#essays">Essays</a><a href="../other-stuff.html">Poems and stories</a><a href="../about.html">About</a></nav>
+<nav class="foot-nav" aria-label="Contact"><p class="eyebrow">Contact</p><a href="mailto:tanveerhari@gmail.com">tanveerhari@gmail.com</a><a href="https://www.linkedin.com/in/tanveer-singh-6367a295/">LinkedIn</a><a href="https://github.com/tanveerhari">GitHub</a></nav>
+</div>
+<p class="meta">© 2026 Tanveer Singh · Chandigarh</p>
+</div></footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

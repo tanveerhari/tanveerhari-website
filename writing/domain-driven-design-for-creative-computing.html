@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Domain-driven design for creative computing · Tanveer Singh</title>
+<meta name="description" content="Domain-driven design for creative computing">
+<meta property="og:title" content="Domain-driven design for creative computing · Tanveer Singh">
+<meta property="og:description" content="Domain-driven design for creative computing">
+<meta property="og:type" content="website">
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Noto+Serif+Gurmukhi:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="brand" href="../index.html" aria-label="Tanveer Singh, home"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><g stroke="var(--accent)" stroke-width="1.2"><path d="M5 9 L14 5 L22 12 L29 7 M22 12 L19 22"/></g><g fill="var(--accent)"><circle cx="5" cy="9" r="1.8"/><circle cx="14" cy="5" r="1.4"/><circle cx="22" cy="12" r="2.2"/><circle cx="29" cy="7" r="1.4"/><circle cx="19" cy="22" r="1.6"/></g><g stroke="var(--ink)" stroke-width="1.2"><path d="M15 31 L19 27 L23 31 Z"/><path d="M12 31 L26 31"/></g></svg><span class="logo"><span class="logo-en" aria-hidden="true">Tanveer Singh</span><span class="logo-pa" lang="pa" aria-hidden="true">ਤਨਵੀਰ ਸਿੰਘ</span></span></a>
+<nav class="nav" aria-label="Main"><a href="../projects.html">Projects</a><a href="../writing/index.html" aria-current="page">Writing</a><a href="../other-stuff.html">Other Stuff</a><a href="../about.html">About</a><a href="../work-with-me.html">Work with me</a></nav>
+</div></header>
+<main id="main" class="wrap">
+<header class="article-head"><p class="eyebrow">Writing · Architecture</p><h1>Domain-driven design for creative computing</h1><p class="meta">2026 · 2 min read</p></header>
+<div class="article-layout"><article class="prose"><p>When I was sketching a DSL for a creative domain (in this case, a computational-composition project), I kept running into the same design decision. Where in the language should the domain's cultural conventions live?</p>
+<p>The answer I settled on became a rule I now use across every creative-computing project: put the abstraction at the transformation point, and keep cultural references out of the base language.</p>
+<p>In the specific case, the transformation was from sound to composition. The base language handles that transformation. Cultural conventions (traditions, genres, structures, established forms) are defined using the base language, not built into it.</p>
+<p>Why this matters:</p>
+<p>The base language stays universal. Anyone from any tradition can build on it. If I baked one tradition's conventions into the base, users from another tradition would either fight the language or leave.</p>
+<p>Culture becomes composable. Someone from one tradition can extend the language for their needs without breaking someone else's. Two contradictory traditions can coexist as separate extensions.</p>
+<p>The language doesn't age. Cultural fashion changes. Domains evolve. If your base language is neutral to those changes, you can extend it. If your base language encodes 2024's conventions, you're locked into 2024.</p>
+<p>This generalises well beyond music. Image DSL: put the abstraction at pixel-to-form. Animation DSL: at time-to-motion. Text-generation DSL: at token-to-meaning. Cultural or stylistic references (styles, genres, conventions, brand voices) sit on top, defined in terms of the base primitives.</p>
+<p>The design question to ask, before writing a single grammar rule:</p>
+<p>What is the invariant transformation this domain performs? Put your language there.</p>
+<p>Everything above that line is opinion. Everything below it is implementation. The language itself should sit exactly at the transformation, and nowhere else.</p>
+<p>This is a version of domain-driven design, adapted for tools where the domain is creative. Which means the domain has strong opinions of its own, and your language's job is to respect them without adopting them.</p></article></div><nav class="pager" aria-label="More writing"><a href="explore-then-scale.html">← Explore then scale: an engineering discipline for AI-native companies</a><a href="inspiration-needs-attention.html">Inspiration needs attention →</a></nav>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div class="foot-cols">
+<p class="motto"><span>Slow, deliberate craftsmanship.</span></p>
+<nav class="foot-nav" aria-label="The Architect"><p class="eyebrow">The Architect</p><a href="../projects.html">Projects</a><a href="../writing/index.html#architecture">Architecture writing</a><a href="https://mviaso.com">Mviaso</a></nav>
+<nav class="foot-nav" aria-label="The Writer"><p class="eyebrow">The Writer</p><a href="../writing/index.html#essays">Essays</a><a href="../other-stuff.html">Poems and stories</a><a href="../about.html">About</a></nav>
+<nav class="foot-nav" aria-label="Contact"><p class="eyebrow">Contact</p><a href="mailto:tanveerhari@gmail.com">tanveerhari@gmail.com</a><a href="https://www.linkedin.com/in/tanveer-singh-6367a295/">LinkedIn</a><a href="https://github.com/tanveerhari">GitHub</a></nav>
+</div>
+<p class="meta">© 2026 Tanveer Singh · Chandigarh</p>
+</div></footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

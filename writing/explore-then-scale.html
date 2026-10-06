@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Explore then scale: an engineering discipline for AI-native companies · Tanveer Singh</title>
+<meta name="description" content="Explore then scale: an engineering discipline for AI-native companies">
+<meta property="og:title" content="Explore then scale: an engineering discipline for AI-native companies · Tanveer Singh">
+<meta property="og:description" content="Explore then scale: an engineering discipline for AI-native companies">
+<meta property="og:type" content="website">
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Noto+Serif+Gurmukhi:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="brand" href="../index.html" aria-label="Tanveer Singh, home"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><g stroke="var(--accent)" stroke-width="1.2"><path d="M5 9 L14 5 L22 12 L29 7 M22 12 L19 22"/></g><g fill="var(--accent)"><circle cx="5" cy="9" r="1.8"/><circle cx="14" cy="5" r="1.4"/><circle cx="22" cy="12" r="2.2"/><circle cx="29" cy="7" r="1.4"/><circle cx="19" cy="22" r="1.6"/></g><g stroke="var(--ink)" stroke-width="1.2"><path d="M15 31 L19 27 L23 31 Z"/><path d="M12 31 L26 31"/></g></svg><span class="logo"><span class="logo-en" aria-hidden="true">Tanveer Singh</span><span class="logo-pa" lang="pa" aria-hidden="true">ਤਨਵੀਰ ਸਿੰਘ</span></span></a>
+<nav class="nav" aria-label="Main"><a href="../projects.html">Projects</a><a href="../writing/index.html" aria-current="page">Writing</a><a href="../other-stuff.html">Other Stuff</a><a href="../about.html">About</a><a href="../work-with-me.html">Work with me</a></nav>
+</div></header>
+<main id="main" class="wrap">
+<header class="article-head"><p class="eyebrow">Writing · Architecture</p><h1>Explore then scale: an engineering discipline for AI-native companies</h1><p class="meta">2026 · 5 min read</p></header>
+<div class="article-layout"><article class="prose"><p>I have started to notice that "AI-native" has joined the small cemetery of phrases that mean less every time they are used. Cloud-native died there. So did digital transformation. So, probably, will agentic.</p>
+<p>I want to make a case for taking AI-native seriously, by which I mean treating it as an engineering discipline rather than a marketing position. The reason matters: I think the next two years will sort companies into two piles based on which one they pick.</p>
+<h2>What AI-native actually means</h2>
+<p>If cloud-native had stuck to its original meaning, it would have described software designed to assume elastic infrastructure, network-as-substrate, and statelessness as a default rather than an exception. Most software that called itself cloud-native was not. It was lifted-and-shifted code with a Kubernetes manifest stapled on.</p>
+<p>AI-native is heading the same direction. The mainstream interpretation right now is: we use an LLM somewhere in our product, and our marketing site says so. By that definition, every team is AI-native and the phrase carries no information.</p>
+<p>The interpretation I find useful, the one I am betting on, is this: AI-native means the software's primary abstraction layer is built to be co-authored by a model and a human, and to do that, the layer has to be linguistically explicit.</p>
+<p>That last part is where the discipline lives.</p>
+<h2>The pattern that does not scale</h2>
+<p>I see a recurring shape in early-stage AI-native startups. It looks like this:</p>
+<ul><li>A founder discovers what LLMs can do in their domain.</li><li>They wrap a fast prototype around prompts and a tool call or two.</li><li>It works for the first ten customers.</li><li>The eleventh customer wants something the prompts cannot do reliably.</li><li>The team adds more prompts, more tools, more if-else around model output.</li><li>By customer fifty, the codebase is a layered fortress of regex, retries, and "for this customer, do this instead."</li></ul>
+<p>This is not a failure of effort. It is a failure of layering. The team built without ever asking what concepts in their domain were stable enough to be named.</p>
+<p>When you do not name the concepts, every customer becomes a special case, and the model becomes the single point of judgement on every decision. That is expensive, slow, and brittle. It is also indistinguishable from being non-AI-native, except more confusing to debug.</p>
+<h2>Explore then scale</h2>
+<p>The discipline we have settled on, after several false starts, is a two-phase pattern. I call it explore then scale, and it is the closest thing I have to a credo for how we build.</p>
+<p>Phase one: explore.</p>
+<p>Build abilities. Solve real customer problems with a mix of code, prompts, and tools. Do not pretend you know the domain yet. The point of phase one is to discover which problems you are actually solving and which concepts keep showing up across them. You are looking for the words that the domain uses naturally.</p>
+<p>Resist the urge to over-abstract here. Premature abstraction is more expensive than special-casing, because a bad abstraction is harder to delete than a duplicated function.</p>
+<p>Phase two: scale.</p>
+<p>When you have built enough abilities to see the domain clearly, formalize it. The concepts that kept appearing in phase one become first-class keywords in a small domain-specific language. Derived concepts are composed from primaries. The DSL becomes the contract between human authors, the model, and the engine that runs the work.</p>
+<p>Once the DSL exists, the rule we follow is roughly: 75% of new feature work is expressed in the DSL and generated; 25% is wired with proven libraries. The model's job is to help authors write the DSL, not to interpret intent at runtime. The engine's job is to execute the DSL deterministically, not to guess.</p>
+<p>I phrase the underlying idea as: deterministic skeleton, probabilistic joints. The DSL is the skeleton. The model handles the joints, which are the places where language, ambiguity, and creativity actually belong.</p>
+<h2>Why this is harder than it sounds</h2>
+<p>The cost of explore-then-scale is that phase one feels embarrassingly slow. You are not shipping a polished product, you are building abilities and watching the domain teach you its own vocabulary.</p>
+<p>The temptation in 2026, with capital cheap-ish and competitors loud, is to skip phase one and go straight to a polished phase-two artefact. That works for about as long as your scope is narrow, and then collapses, because you formalized a domain you had not actually explored.</p>
+<p>The other failure mode is staying in phase one forever. Some teams genuinely enjoy the abilities phase: it is creative, it is full of small wins, and the codebase looks like art. But if you never scale, you never compound, and your fortieth ability is no cheaper to build than your first.</p>
+<p>The discipline is knowing when to leave phase one. The signal I trust is when I can name, on a whiteboard, six to ten concepts that keep recurring across the abilities we have built, and when those concepts have stable boundaries. That is the readiness signal for a DSL. If you cannot name them clearly, you are not ready.</p>
+<h2>Worked example, kept abstract</h2>
+<p>Take a domain I am familiar with: test automation for web applications. In phase one we built abilities like crawl a site, generate scenarios, identify equivalent states, parameterize inputs. Most of these were prompts wrapped around code and graph machinery, plus the occasional LLM consult.</p>
+<p>Around month nine, the recurring concepts were unmistakable: state, transition, scenario, parameter, equivalence, oracle. Six words. Each had a stable boundary in the domain. So we formalized a small DSL whose primary keywords were exactly those, composed derived concepts from them, and rebuilt the abilities on top of the DSL rather than around prompts.</p>
+<p>The same pattern is now playing out for us in business operations and in real estate workflows. Different domains, same shape. The DSL is the moat. The abilities are the path to discovering it.</p>
+<h2>The boring middle is where the moat is</h2>
+<p>If I had to summarize the strategic claim in one sentence, it is this: AI-native companies that will compound are not the ones with the best prompts or the best models. They are the ones who took the time to learn the language of their domain and then made that language executable.</p>
+<p>That work is unglamorous. It does not demo well. It is slow at the start and unfairly fast later. It is also, in my experience, the only AI-native architecture I have seen survive the second year.</p>
+<p>The marketing era of AI-native is roughly halfway done. The engineering era is about to begin.</p></article></div><nav class="pager" aria-label="More writing"><a href="llms-a-discovery.html">← LLMs: a discovery more than an invention</a><a href="domain-driven-design-for-creative-computing.html">Domain-driven design for creative computing →</a></nav>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div class="foot-cols">
+<p class="motto"><span>Slow, deliberate craftsmanship.</span></p>
+<nav class="foot-nav" aria-label="The Architect"><p class="eyebrow">The Architect</p><a href="../projects.html">Projects</a><a href="../writing/index.html#architecture">Architecture writing</a><a href="https://mviaso.com">Mviaso</a></nav>
+<nav class="foot-nav" aria-label="The Writer"><p class="eyebrow">The Writer</p><a href="../writing/index.html#essays">Essays</a><a href="../other-stuff.html">Poems and stories</a><a href="../about.html">About</a></nav>
+<nav class="foot-nav" aria-label="Contact"><p class="eyebrow">Contact</p><a href="mailto:tanveerhari@gmail.com">tanveerhari@gmail.com</a><a href="https://www.linkedin.com/in/tanveer-singh-6367a295/">LinkedIn</a><a href="https://github.com/tanveerhari">GitHub</a></nav>
+</div>
+<p class="meta">© 2026 Tanveer Singh · Chandigarh</p>
+</div></footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

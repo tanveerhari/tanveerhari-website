@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The shape of the problem · Tanveer Singh</title>
+<meta name="description" content="What a Netconf manager has to do, written as one small equation, and why it splits into a library and a service.">
+<meta property="og:title" content="The shape of the problem · Tanveer Singh">
+<meta property="og:description" content="What a Netconf manager has to do, written as one small equation, and why it splits into a library and a service.">
+<meta property="og:type" content="website">
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Noto+Serif+Gurmukhi:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="brand" href="../index.html" aria-label="Tanveer Singh, home"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><g stroke="var(--accent)" stroke-width="1.2"><path d="M5 9 L14 5 L22 12 L29 7 M22 12 L19 22"/></g><g fill="var(--accent)"><circle cx="5" cy="9" r="1.8"/><circle cx="14" cy="5" r="1.4"/><circle cx="22" cy="12" r="2.2"/><circle cx="29" cy="7" r="1.4"/><circle cx="19" cy="22" r="1.6"/></g><g stroke="var(--ink)" stroke-width="1.2"><path d="M15 31 L19 27 L23 31 Z"/><path d="M12 31 L26 31"/></g></svg><span class="logo"><span class="logo-en" aria-hidden="true">Tanveer Singh</span><span class="logo-pa" lang="pa" aria-hidden="true">ਤਨਵੀਰ ਸਿੰਘ</span></span></a>
+<nav class="nav" aria-label="Main"><a href="../projects.html">Projects</a><a href="../writing/index.html" aria-current="page">Writing</a><a href="../other-stuff.html">Other Stuff</a><a href="../about.html">About</a><a href="../work-with-me.html">Work with me</a></nav>
+</div></header>
+<main id="main" class="wrap">
+<header class="article-head"><p class="eyebrow">Series · Designing a Netconf Manager · Part 1 of 4</p><h1>The shape of the problem</h1><p class="lede">What a Netconf manager has to do, written as one small equation, and why it splits into a library and a service.</p><p class="meta">Oct 2026 · 3 min read</p></header>
+<div class="article-layout"><article class="prose"><p>This series is about thought process more than code. The design here is not a comparison with any existing product, and it is not built for one OSS server's requirements. It is a service meant to act as an efficient middleware between any client and NETCONF-based network elements. So it will ignore some requirements real systems have, and add a few of its own.</p>
+<p>A basic understanding of NETCONF and networking helps. If you don't have one, read on anyway, as if it were a trip into the unknown.</p>
+<h2>What it is</h2>
+<p>A Netconf manager is a service that lets clients talk to NETCONF-based network elements, or nodes. Being a service, it runs as its own process and takes responsibility for its own resources, besides doing what the protocol asks.</p>
+<p>Like everything since our first day of computer education, it takes some input, processes it and gives back some output. Three kinds of input are possible:</p>
+<ol><li>NETCONF operation requests (get, get-config, edit-config and so on), counted as <strong>r</strong>;</li><li>subscription requests, counted as <strong>s</strong>;</li><li>basic service information requests, such as capabilities, counted as <strong>i</strong>.</li></ol>
+<p>And five kinds of response:</p>
+<ol><li>responses to operation requests;</li><li>responses to subscription requests;</li><li>notifications from subscribed nodes, counted as <strong>n</strong>;</li><li>responses to information requests;</li><li>errors and failures, counted as <strong>e</strong>.</li></ol>
+<h2>The definition, as an equation</h2>
+<p>That gives a definition compact enough to design against:</p>
+<blockquote><p>For every r + s + i requests, the manager responds with at most r + s + i + n + e responses and at least r + s + i, where n &gt; 0 only if s &gt; 0.</p></blockquote>
+<p>Every request gets an answer. Notifications exist only if someone subscribed. Errors are the only other thing allowed out.</p>
+<figure class="fig" role="group" aria-label="Netconf Manager as middleware"><svg viewBox="0 0 760 200" role="img" aria-label="Clients talk to the Netconf Manager, which talks to network nodes"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="d-ah" d="M0 0 L10 5 L0 10 z"/></marker></defs><rect class="d-box" x="20" y="70" width="150" height="70" rx="6"/><text class="d-t" x="95.0" y="103.0" text-anchor="middle">Clients</text><text class="d-s" x="95.0" y="120.0" text-anchor="middle">OSS, tools, scripts</text><rect class="d-soft" x="290" y="40" width="180" height="130" rx="6"/><text class="d-t" x="380.0" y="110.0" text-anchor="middle"></text><text class="d-t" x="380" y="62" text-anchor="middle">Netconf Manager</text><rect class="d-box" x="310" y="75" width="140" height="36" rx="6"/><text class="d-t" x="380.0" y="98.0" text-anchor="middle">Manager service</text><rect class="d-box" x="310" y="120" width="140" height="36" rx="6"/><text class="d-t" x="380.0" y="143.0" text-anchor="middle">Netconf library</text><rect class="d-box" x="590" y="70" width="150" height="70" rx="6"/><text class="d-t" x="665.0" y="103.0" text-anchor="middle">Network nodes</text><text class="d-s" x="665.0" y="120.0" text-anchor="middle">NETCONF servers</text><line class="d-l" x1="172" y1="92" x2="286" y2="92" marker-end="url(#ah)"/><text class="d-s" x="229" y="84" text-anchor="middle">r + s + i</text><line class="d-l" x1="286" y1="120" x2="172" y2="120" marker-end="url(#ah)"/><text class="d-s" x="229" y="136" text-anchor="middle">≤ r + s + i + n + e</text><line class="d-l" x1="472" y1="92" x2="586" y2="92" marker-end="url(#ah)"/><text class="d-s" x="529" y="84" text-anchor="middle">r + h + c + s</text><line class="d-l" x1="586" y1="120" x2="472" y2="120" marker-end="url(#ah)"/><text class="d-s" x="529" y="136" text-anchor="middle">r + h + c + s + n</text></svg><figcaption>The manager sits between clients and nodes. r: operation requests, s: subscriptions, i: information requests, n: notifications, e: errors, h and c: the hello and close messages the manager adds itself.</figcaption></figure>
+<p>Towards the nodes the counts change. The manager sends r + h + c + s messages and receives r + h + c + s + n, where h counts the hello messages exchanged when a connection opens and c the close requests and their replies. Those extra messages are the manager's own business: opening and closing NETCONF connections is something it does for its clients, not something they ask for.</p>
+<h2>Two components</h2>
+<p>To keep the solution general and flexible, the service does not implement the protocol itself. It uses a library. So the design has two major parts:</p>
+<ol><li>a <strong>Netconf library</strong>, which handles the functional side of the protocol;</li><li>a <strong>Netconf manager service</strong>, which uses that library efficiently on behalf of many clients.</li></ol>
+<p>Subscriptions and notifications wait until the end of the series. They are defined in a separate RFC (5277) from the base protocol (6241), which is a good hint that they are an extension, so the design treats them as one.</p>
+<p>Next: <a href="netconf-2-the-library.html">the Netconf library</a>.</p><p class="edit-note">From a design essay written around 2014, while working on NETCONF systems for telecom.</p></article><aside class="margin"><div class="series-box"><p class="eyebrow">The series</p><p class="series-name">Designing a Netconf Manager</p><ol><li aria-current="page"><a href="netconf-1-the-shape-of-the-problem.html">The shape of the problem</a></li><li><a href="netconf-2-the-library.html">The library</a></li><li><a href="netconf-3-the-service.html">The service</a></li><li><a href="netconf-4-subscriptions.html">Subscriptions and notifications</a></li></ol></div></aside></div><nav class="pager" aria-label="Series"><a href="index.html#series">← All series</a><a href="netconf-2-the-library.html">Part 2: The library →</a></nav>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div class="foot-cols">
+<p class="motto"><span>Slow, deliberate craftsmanship.</span></p>
+<nav class="foot-nav" aria-label="The Architect"><p class="eyebrow">The Architect</p><a href="../projects.html">Projects</a><a href="../writing/index.html#architecture">Architecture writing</a><a href="https://mviaso.com">Mviaso</a></nav>
+<nav class="foot-nav" aria-label="The Writer"><p class="eyebrow">The Writer</p><a href="../writing/index.html#essays">Essays</a><a href="../other-stuff.html">Poems and stories</a><a href="../about.html">About</a></nav>
+<nav class="foot-nav" aria-label="Contact"><p class="eyebrow">Contact</p><a href="mailto:tanveerhari@gmail.com">tanveerhari@gmail.com</a><a href="https://www.linkedin.com/in/tanveer-singh-6367a295/">LinkedIn</a><a href="https://github.com/tanveerhari">GitHub</a></nav>
+</div>
+<p class="meta">© 2026 Tanveer Singh · Chandigarh</p>
+</div></footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

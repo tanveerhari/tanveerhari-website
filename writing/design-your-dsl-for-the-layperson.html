@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Design your DSL for the layperson, not the expert · Tanveer Singh</title>
+<meta name="description" content="Design your DSL for the layperson, not the expert">
+<meta property="og:title" content="Design your DSL for the layperson, not the expert · Tanveer Singh">
+<meta property="og:description" content="Design your DSL for the layperson, not the expert">
+<meta property="og:type" content="website">
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Noto+Serif+Gurmukhi:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="brand" href="../index.html" aria-label="Tanveer Singh, home"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><g stroke="var(--accent)" stroke-width="1.2"><path d="M5 9 L14 5 L22 12 L29 7 M22 12 L19 22"/></g><g fill="var(--accent)"><circle cx="5" cy="9" r="1.8"/><circle cx="14" cy="5" r="1.4"/><circle cx="22" cy="12" r="2.2"/><circle cx="29" cy="7" r="1.4"/><circle cx="19" cy="22" r="1.6"/></g><g stroke="var(--ink)" stroke-width="1.2"><path d="M15 31 L19 27 L23 31 Z"/><path d="M12 31 L26 31"/></g></svg><span class="logo"><span class="logo-en" aria-hidden="true">Tanveer Singh</span><span class="logo-pa" lang="pa" aria-hidden="true">ਤਨਵੀਰ ਸਿੰਘ</span></span></a>
+<nav class="nav" aria-label="Main"><a href="../projects.html">Projects</a><a href="../writing/index.html" aria-current="page">Writing</a><a href="../other-stuff.html">Other Stuff</a><a href="../about.html">About</a><a href="../work-with-me.html">Work with me</a></nav>
+</div></header>
+<main id="main" class="wrap">
+<header class="article-head"><p class="eyebrow">Writing · Architecture</p><h1>Design your DSL for the layperson, not the expert</h1><p class="meta">2026 · 2 min read</p></header>
+<div class="article-layout"><article class="prose"><p>The natural instinct when designing a tool for a domain is to design it for domain experts. It feels respectful. It feels rigorous. It's almost always wrong.</p>
+<p>I ran into this while sketching a DSL for a creative-composition domain. The obvious user was the domain expert. But experts in that field already have tools they know, workflows they've internalised, and a low tolerance for switching costs. They don't need my tool. What they need is for their existing tools to stop annoying them, which isn't a market I can serve.</p>
+<p>The layperson is different. The layperson has no tools, no workflow, and a high tolerance for anything that lets them participate at all.</p>
+<p>Designing for the layperson forces the abstractions to be honest. If a non-expert can produce meaningful output using your DSL, an expert can too, because the expert already understands the underlying domain better than any DSL exposes. The reverse isn't true. An expert-facing DSL almost always assumes prior knowledge that a layperson doesn't have, and no amount of documentation closes that gap.</p>
+<p>There's a broader pattern here. The most interesting vertical tools of the current era are the ones that let non-lawyers do legal work, non-designers do design work, non-analysts do analysis. Not by pretending expertise doesn't matter, but by exposing the useful primitives of the domain in a form a beginner can operate.</p>
+<p>The design rule I've come to:</p>
+<p>If your target user needs to already know the domain to use your tool, you've built a productivity aid for people who don't need one.</p>
+<p>If a layperson can use it and produce something worthwhile, you've built a market-maker.</p>
+<p>Which of these you want to build is a strategic choice. But be honest that they're different products with different users, and the first one is almost always a smaller opportunity than it looks.</p></article></div><nav class="pager" aria-label="More writing"><a href="when-the-bottleneck-moves.html">← When the bottleneck moves: notes on consulting after LLMs</a><a href="habit-beats-goals.html">Habit beats goals: the pedometer principle →</a></nav>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div class="foot-cols">
+<p class="motto"><span>Slow, deliberate craftsmanship.</span></p>
+<nav class="foot-nav" aria-label="The Architect"><p class="eyebrow">The Architect</p><a href="../projects.html">Projects</a><a href="../writing/index.html#architecture">Architecture writing</a><a href="https://mviaso.com">Mviaso</a></nav>
+<nav class="foot-nav" aria-label="The Writer"><p class="eyebrow">The Writer</p><a href="../writing/index.html#essays">Essays</a><a href="../other-stuff.html">Poems and stories</a><a href="../about.html">About</a></nav>
+<nav class="foot-nav" aria-label="Contact"><p class="eyebrow">Contact</p><a href="mailto:tanveerhari@gmail.com">tanveerhari@gmail.com</a><a href="https://www.linkedin.com/in/tanveer-singh-6367a295/">LinkedIn</a><a href="https://github.com/tanveerhari">GitHub</a></nav>
+</div>
+<p class="meta">© 2026 Tanveer Singh · Chandigarh</p>
+</div></footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

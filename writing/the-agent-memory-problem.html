@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The agent memory problem: notes from building one · Tanveer Singh</title>
+<meta name="description" content="The agent memory problem: notes from building one">
+<meta property="og:title" content="The agent memory problem: notes from building one · Tanveer Singh">
+<meta property="og:description" content="The agent memory problem: notes from building one">
+<meta property="og:type" content="website">
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Noto+Serif+Gurmukhi:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+<a class="brand" href="../index.html" aria-label="Tanveer Singh, home"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><g stroke="var(--accent)" stroke-width="1.2"><path d="M5 9 L14 5 L22 12 L29 7 M22 12 L19 22"/></g><g fill="var(--accent)"><circle cx="5" cy="9" r="1.8"/><circle cx="14" cy="5" r="1.4"/><circle cx="22" cy="12" r="2.2"/><circle cx="29" cy="7" r="1.4"/><circle cx="19" cy="22" r="1.6"/></g><g stroke="var(--ink)" stroke-width="1.2"><path d="M15 31 L19 27 L23 31 Z"/><path d="M12 31 L26 31"/></g></svg><span class="logo"><span class="logo-en" aria-hidden="true">Tanveer Singh</span><span class="logo-pa" lang="pa" aria-hidden="true">ਤਨਵੀਰ ਸਿੰਘ</span></span></a>
+<nav class="nav" aria-label="Main"><a href="../projects.html">Projects</a><a href="../writing/index.html" aria-current="page">Writing</a><a href="../other-stuff.html">Other Stuff</a><a href="../about.html">About</a><a href="../work-with-me.html">Work with me</a></nav>
+</div></header>
+<main id="main" class="wrap">
+<header class="article-head"><p class="eyebrow">Writing · Architecture</p><h1>The agent memory problem: notes from building one</h1><p class="meta">2026 · 5 min read</p></header>
+<div class="article-layout"><article class="prose"><p>The first time I noticed it, I was watching our agent fail at a task it had succeeded at twenty minutes earlier.</p>
+<p>Same prompt, same environment, same model. The first run, it navigated through a workflow cleanly. The second run, it stumbled at the same step three times before getting it right. The third run, it stumbled differently. By the end of the afternoon I had a hundred runs, and I could plot the success rate as a flat line that did not move with model upgrades, prompt tuning, or temperature.</p>
+<p>The model was not getting worse. It was failing to learn anything.</p>
+<p>That was the moment I understood that the agentic AI conversation in 2026 is being held at the wrong layer. We argue about which model. We argue about which framework. We argue about orchestrators and protocols. Almost nobody is asking the prior question: what shape should an agent's memory take?</p>
+<h2>The pattern of failure</h2>
+<p>If you have shipped an agent to production, you have probably seen some version of this:</p>
+<ul><li>It reasons brilliantly inside a single trajectory.</li><li>It forgets that reasoning the next time the same situation arises.</li><li>It re-discovers it, sometimes correctly, sometimes not.</li><li>Token cost climbs as you bolt on longer context windows to compensate.</li><li>Reliability does not climb with it.</li></ul>
+<p>This is not a "scale the model" problem. I tried that. We have all tried that. A bigger model with no memory is just a more expressive amnesiac.</p>
+<p>It is also not a "vector store" problem in the way the industry has framed it. Vector retrieval gives an agent the ability to look up text it has seen before. That is useful for question answering. It is almost useless for procedural tasks, because the unit of memory an agent needs is not "a paragraph I once read." It is "in state X, action A led to outcome O, with probability P."</p>
+<p>That is a graph. Specifically, a graph with states as nodes, actions as edges, and outcomes as labels you accumulate as the agent acts. The agent's memory has to have the same shape as the agent's job.</p>
+<h2>What we built</h2>
+<p>Our agent platform has two memory components and three modes of operation.</p>
+<p>The two memory components:</p>
+<ul><li>Short-term memory (STM): the current trajectory. State, action, observation, outcome, in sequence. Bounded.</li><li>Long-term memory (LTM): a persistent graph. Nodes are states the agent has been in. Edges are actions it has taken between them. Labels accumulate across runs: how often this action worked, under what conditions, with what side effects.</li></ul>
+<p>The three modes:</p>
+<ul><li>Navigate: use the LTM. If the agent has been here before and knows what worked, just do it. No LLM call.</li><li>Explore: the LTM does not cover the situation. Try something reasonable, log the outcome, expand the graph.</li><li>Consult: when even exploration is uncertain, escalate to the LLM. The LLM proposes; the agent verifies and stores the outcome.</li></ul>
+<p>The LLM, in this architecture, is not the brain. It is the tongue. It is excellent at language, ambiguity, and creative proposal. It is bad at remembering what you taught it last Tuesday. So we stopped asking it to.</p>
+<h2>What the numbers said</h2>
+<p>I am wary of cherry-picking a benchmark, so I will tell you the one I tracked because it surprised me.</p>
+<p>We ran a Smart Room prototype: an agent operating a simulated environment with a fixed set of objectives. Before the memory rework, Navigate-mode success was around 2%. Not a typo. The agent had no idea what had worked before, so almost every run was a fresh exploration that re-learned nothing.</p>
+<p>After we introduced the STM/LTM graph and the three-mode operation, the numbers over four days looked like this:</p>
+<ul><li>Navigate-mode success: 2% climbing to roughly 80%</li><li>LLM calls per task: dropping toward zero by day four</li><li>Decisions logged: 866</li><li>Learned associations stored procedurally: 214</li></ul>
+<p>The most interesting line is the LLM-calls one. The agent did not need a bigger model. It needed to stop asking the model the same questions over and over. By day four it was running mostly on remembered structure, calling the LLM only at genuine novelty.</p>
+<p>That is what cheap, reliable agentic AI looks like when you draw it on a chart.</p>
+<h2>Why this matters to a CTO</h2>
+<p>If you are evaluating agentic AI vendors right now, three questions are worth asking before any conversation about the model:</p>
+<ol><li>What is the shape of the agent's memory? If the answer is "a vector database," the vendor has not solved the problem. They have stored the symptom.</li><li>Can the agent distinguish what it remembers from what it is guessing? Without that distinction, you cannot audit it, and you cannot trust it in production.</li><li>Does the cost per task fall over time as the agent learns, or stay flat? If costs are flat, the agent is not learning, it is just performing. You will pay forever for a service that should be getting cheaper.</li></ol>
+<p>The Gartner number that has been making the rounds (40% of agentic AI projects will be cancelled by end of 2027) is plausible to me precisely because most of the projects I have seen evaluated do not pass any of those three tests. They cannot. They were not architected to.</p>
+<h2>What I would tell my past self</h2>
+<p>The thing that delayed us was the assumption that the LLM was supposed to be doing the thinking. Once we stopped treating the LLM as the brain and started treating it as a narrow, expensive specialist that we would consult sparingly, the architecture clarified.</p>
+<p>Agents are not language models with tools. They are stateful programs that occasionally borrow language from a model.</p>
+<p>If you internalize that, the question "which model should we use" becomes far less urgent than "what does our agent know, and how does it know it." That is the question I wish the industry was arguing about. It is the one I expect to define which agentic projects survive 2027 and which become the cancellation statistic.</p></article></div><nav class="pager" aria-label="More writing"><a href="the-story-behind-these-pages.html">← The story behind these pages</a><a href="from-engineer-to-architect.html">From engineer to architect: what AI changed →</a></nav>
+</main>
+<footer class="site-footer"><div class="wrap">
+<div class="foot-cols">
+<p class="motto"><span>Slow, deliberate craftsmanship.</span></p>
+<nav class="foot-nav" aria-label="The Architect"><p class="eyebrow">The Architect</p><a href="../projects.html">Projects</a><a href="../writing/index.html#architecture">Architecture writing</a><a href="https://mviaso.com">Mviaso</a></nav>
+<nav class="foot-nav" aria-label="The Writer"><p class="eyebrow">The Writer</p><a href="../writing/index.html#essays">Essays</a><a href="../other-stuff.html">Poems and stories</a><a href="../about.html">About</a></nav>
+<nav class="foot-nav" aria-label="Contact"><p class="eyebrow">Contact</p><a href="mailto:tanveerhari@gmail.com">tanveerhari@gmail.com</a><a href="https://www.linkedin.com/in/tanveer-singh-6367a295/">LinkedIn</a><a href="https://github.com/tanveerhari">GitHub</a></nav>
+</div>
+<p class="meta">© 2026 Tanveer Singh · Chandigarh</p>
+</div></footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>
