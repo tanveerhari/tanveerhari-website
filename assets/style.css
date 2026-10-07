@@ -215,7 +215,8 @@ details.roman .verse { font-size: 1.1rem; font-style: italic; color: var(--ink-s
 .tiles h3 { font-size: 1.5rem; }
 .tiles p { margin: 0; color: var(--ink-soft); font-size: 1.02rem; }
 .about { display: flex; flex-wrap: wrap; gap: 2.5rem 4rem; align-items: flex-start; }
-.portrait { flex: 1 1 15rem; max-width: 20rem; aspect-ratio: 4 / 5; border: 1px dashed var(--muted); border-radius: 4px; background: var(--wash); display: grid; place-items: center; font-family: var(--mono); font-size: .8rem; color: var(--ink-soft); }
+.portrait { flex: 1 1 15rem; max-width: 20rem; aspect-ratio: 4 / 5; margin: 0; border-radius: 4px; overflow: hidden; background: var(--wash); }
+.portrait img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .about-text { flex: 999 1 28rem; min-width: 0; display: grid; gap: 1rem; }
 .about-text p { margin: 0; font-size: 1.2rem; }
 .boxed { border: 1px solid var(--rule); border-radius: 4px; padding: 1.4rem 1.6rem; display: grid; gap: .4rem; }
@@ -331,3 +332,16 @@ details.roman .verse { font-size: 1.1rem; font-style: italic; color: var(--ink-s
 .rec blockquote p { margin: 0; }
 .rec figcaption { display: grid; gap: .2rem; }
 .rec-name { font-weight: 600; }
+
+/* Privacy page and notice */
+.privacy { max-width: 40rem; margin-top: 2.5rem; }
+.privacy h2 { font-size: 1.5rem; margin: 2rem 0 .5rem; }
+.privacy-notice { position: fixed; left: 1rem; bottom: 1rem; z-index: 50; max-width: min(24rem, calc(100vw - 2rem));
+  display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; padding: .85rem 1rem;
+  background: var(--card, var(--paper)); color: var(--ink); border: 1px solid var(--rule); border-radius: 6px;
+  box-shadow: 0 6px 24px rgba(15, 27, 45, .12); font-family: var(--mono); font-size: .8rem; line-height: 1.5; }
+.privacy-notice p { margin: 0; flex: 1 1 12rem; }
+.privacy-notice .actions { display: flex; gap: .75rem; align-items: center; }
+.privacy-notice button { min-height: 2.5rem; padding: 0 1rem; border: 1px solid var(--ink); border-radius: 999px; background: var(--ink); color: var(--paper); font: inherit; cursor: pointer; }
+.privacy-notice button:hover { background: var(--accent-deep); border-color: var(--accent-deep); }
+@media print { .privacy-notice { display: none; } }

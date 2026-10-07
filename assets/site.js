@@ -40,6 +40,24 @@
     if (h && document.querySelector('.tab[data-filter="' + h + '"]')) apply(h);
   }
 
+  // Privacy notice: says plainly that the site uses no cookies or tracking. Closing it is
+  // remembered in local storage (never sent anywhere); without storage it just closes for this page.
+  (function () {
+    var KEY = 'privacy-notice', seen = false;
+    try { seen = localStorage.getItem(KEY) === 'closed'; } catch (e) {}
+    if (seen || /privacy\.html$/.test(location.pathname)) return;
+    var root = (document.querySelector('link[rel="stylesheet"][href$="assets/style.css"]') || {}).getAttribute
+      ? document.querySelector('link[rel="stylesheet"][href$="assets/style.css"]').getAttribute('href').replace('assets/style.css', '') : '';
+    var box = document.createElement('div');
+    box.className = 'privacy-notice'; box.setAttribute('role', 'region'); box.setAttribute('aria-label', 'Privacy notice');
+    box.innerHTML = '<p>This site uses no cookies and no tracking.</p><div class="actions"><a href="' + root + 'privacy.html">Privacy</a><button type="button">OK</button></div>';
+    box.querySelector('button').addEventListener('click', function () {
+      try { localStorage.setItem(KEY, 'closed'); } catch (e) {}
+      box.remove();
+    });
+    document.body.appendChild(box);
+  })();
+
   // Work with me: copy the email address.
   document.querySelectorAll('.copy[data-copy]').forEach(function (btn) {
     btn.addEventListener('click', function () {

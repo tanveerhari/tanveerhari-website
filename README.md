@@ -10,15 +10,16 @@ Live at **[tanveerhari.com](https://tanveerhari.com)**.
 
 ## How it's built
 
-Plain HTML, CSS and a little JavaScript. There is no framework, no build step and no tracking.
+Plain HTML, CSS and a little JavaScript. There is no framework, no build step, no cookies and no tracking. Pages make no requests to any other site.
 
-- **Fonts:** Fraunces, Newsreader, JetBrains Mono and Noto Serif Gurmukhi, loaded from Google Fonts.
+- **Fonts:** Fraunces, Newsreader, JetBrains Mono and Noto Serif Gurmukhi, served from `assets/fonts/` (SIL Open Font License 1.1), not from Google Fonts.
 - **Themes:** light and dark, following the visitor's system setting.
 - **Diagrams:** inline SVG styled by the stylesheet, so they follow the theme.
 - **JavaScript** (`assets/site.js`) does three small things:
   - shows the name in Gurmukhi (ਤਨਵੀਰ ਸਿੰਘ) when you hover over or tap the logo;
   - runs the filter tabs on Projects and Writing;
-  - copies the email address.
+  - copies the email address;
+  - shows a small privacy notice (no cookies, no tracking) until it is closed, remembered in local storage only.
 
 ## Layout
 
@@ -27,6 +28,7 @@ index.html            Home: the Architect and the Writer
 about.html            Biography, a life in chapters, recommendations
 projects.html         Professional, open-source and hobby projects
 work-with-me.html     How I can help
+privacy.html          Privacy and cookies
 other-stuff.html      Stories and poems
 writing/              Essays, architecture pieces and technical series
 poems/                One page per poem, plus an index
