@@ -5,9 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The library · Tanveer Singh</title>
 <meta name="description" content="Four layers in the RFC become four components: operations, session, RPC and transport, with the session at the centre.">
+<link rel="canonical" href="https://tanveerhari.com/writing/netconf-2-the-library.html">
+<meta name="author" content="Tanveer Singh">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#F3F6FA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0C1522" media="(prefers-color-scheme: dark)">
+<meta property="og:site_name" content="Tanveer Singh">
 <meta property="og:title" content="The library · Tanveer Singh">
 <meta property="og:description" content="Four layers in the RFC become four components: operations, session, RPC and transport, with the session at the centre.">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://tanveerhari.com/writing/netconf-2-the-library.html">
+<meta property="og:image" content="https://tanveerhari.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tanveer Singh: software architect, writer, co-founder and CTO of Mviaso">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The library · Tanveer Singh">
+<meta name="twitter:description" content="Four layers in the RFC become four components: operations, session, RPC and transport, with the session at the centre.">
+<meta name="twitter:image" content="https://tanveerhari.com/assets/og-image.png">
+<meta property="article:published_time" content="2014">
+<meta property="article:modified_time" content="2026-10-07">
+<meta property="article:author" content="https://tanveerhari.com/about.html">
+<meta property="article:section" content="Architecture">
+<link rel="icon" href="../assets/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/icon-180.png">
+<link rel="alternate" type="application/rss+xml" title="Tanveer Singh: Writing" href="https://tanveerhari.com/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BlogPosting", "headline": "The library", "description": "Four layers in the RFC become four components: operations, session, RPC and transport, with the session at the centre.", "url": "https://tanveerhari.com/writing/netconf-2-the-library.html", "mainEntityOfPage": "https://tanveerhari.com/writing/netconf-2-the-library.html", "image": "https://tanveerhari.com/assets/og-image.png", "author": {"@type": "Person", "@id": "https://tanveerhari.com/#person", "name": "Tanveer Singh", "url": "https://tanveerhari.com/"}, "publisher": {"@type": "Person", "@id": "https://tanveerhari.com/#person", "name": "Tanveer Singh"}, "datePublished": "2014", "dateModified": "2026-10-07", "inLanguage": "en", "articleSection": "Architecture", "isPartOf": {"@type": "CreativeWorkSeries", "name": "Designing a Netconf Manager"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://tanveerhari.com/"}, {"@type": "ListItem", "position": 2, "name": "Writing", "item": "https://tanveerhari.com/writing/"}, {"@type": "ListItem", "position": 3, "name": "The library", "item": "https://tanveerhari.com/writing/netconf-2-the-library.html"}]}]}</script>
 <link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +44,7 @@
 <nav class="nav" aria-label="Main"><a href="../projects.html">Projects</a><a href="../writing/index.html" aria-current="page">Writing</a><a href="../other-stuff.html">Other Stuff</a><a href="../about.html">About</a><a href="../work-with-me.html">Work with me</a></nav>
 </div></header>
 <main id="main" class="wrap">
-<header class="article-head"><p class="eyebrow">Series · Designing a Netconf Manager · Part 2 of 4</p><h1>The library</h1><p class="lede">Four layers in the RFC become four components: operations, session, RPC and transport, with the session at the centre.</p><p class="meta">Oct 2026 · 5 min read</p></header>
+<header class="article-head"><p class="eyebrow">Series · Designing a Netconf Manager · Part 2 of 4</p><h1>The library</h1><p class="lede">Four layers in the RFC become four components: operations, session, RPC and transport, with the session at the centre.</p><p class="meta">2014 · 5 min read</p></header>
 <div class="article-layout"><article class="prose"><p>RFC 6241 says NETCONF "provides mechanisms to install, manipulate, and delete the configuration of network devices", using XML for both data and messages, with operations realised as remote procedure calls. Tough language. Four plain points come out of it:</p>
 <ul><li>it is a configuration protocol;</li><li>it needs a connection to network devices, and so a session;</li><li>it uses XML as its base language;</li><li>its operations are RPCs, which are XML messages.</li></ul>
 <p>Although RFC 6241 is the reference, the library should stay as general as possible, so it can take future changes without a redesign.</p>
@@ -48,7 +72,7 @@
 <h2>Services and utilities</h2>
 <p>Two small families round it off. Services give structure to things like node information and logging. Utilities hold the static and factory helpers: NETCONF and library properties, general XML handling, security certificates.</p>
 <p>A task that ties a session, a secure protocol and a socket together could live in the library. It is better left to the service layer, which has to manage resources its own way.</p>
-<p>Next: <a href="netconf-3-the-service.html">the manager service</a>.</p></article><aside class="margin"><div class="series-box"><p class="eyebrow">The series</p><p class="series-name">Designing a Netconf Manager</p><ol><li><a href="netconf-1-the-shape-of-the-problem.html">The shape of the problem</a></li><li aria-current="page"><a href="netconf-2-the-library.html">The library</a></li><li><a href="netconf-3-the-service.html">The service</a></li><li><a href="netconf-4-subscriptions.html">Subscriptions and notifications</a></li></ol></div></aside></div><nav class="pager" aria-label="Series"><a href="netconf-1-the-shape-of-the-problem.html">← Part 1: The shape of the problem</a><a href="netconf-3-the-service.html">Part 3: The service →</a></nav>
+<p>Next: <a href="netconf-3-the-service.html">the manager service</a>.</p><p class="edit-note">Drafted in 2014<br>Updated for site in 2026</p></article><aside class="margin"><div class="series-box"><p class="eyebrow">The series</p><p class="series-name">Designing a Netconf Manager</p><ol><li><a href="netconf-1-the-shape-of-the-problem.html">The shape of the problem</a></li><li aria-current="page"><a href="netconf-2-the-library.html">The library</a></li><li><a href="netconf-3-the-service.html">The service</a></li><li><a href="netconf-4-subscriptions.html">Subscriptions and notifications</a></li></ol></div></aside></div><nav class="pager" aria-label="Series"><a href="netconf-1-the-shape-of-the-problem.html">← Part 1: The shape of the problem</a><a href="netconf-3-the-service.html">Part 3: The service →</a></nav>
 </main>
 <footer class="site-footer"><div class="wrap">
 <div class="foot-cols">
@@ -59,6 +83,6 @@
 </div>
 <p class="meta">© 2026 Tanveer Singh · Chandigarh</p>
 </div></footer>
-<script src="../assets/site.js"></script>
+<script src="../assets/site.js" defer></script>
 </body>
 </html>

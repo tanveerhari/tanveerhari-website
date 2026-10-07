@@ -5,9 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Edge AI in the physical world · Tanveer Singh</title>
 <meta name="description" content="An attendance system that combines a sensor, a Raspberry Pi and face recognition, and what its architecture teaches.">
+<link rel="canonical" href="https://tanveerhari.com/writing/iot-3-edge-ai-attendance.html">
+<meta name="author" content="Tanveer Singh">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#F3F6FA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0C1522" media="(prefers-color-scheme: dark)">
+<meta property="og:site_name" content="Tanveer Singh">
 <meta property="og:title" content="Edge AI in the physical world · Tanveer Singh">
 <meta property="og:description" content="An attendance system that combines a sensor, a Raspberry Pi and face recognition, and what its architecture teaches.">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://tanveerhari.com/writing/iot-3-edge-ai-attendance.html">
+<meta property="og:image" content="https://tanveerhari.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tanveer Singh: software architect, writer, co-founder and CTO of Mviaso">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Edge AI in the physical world · Tanveer Singh">
+<meta name="twitter:description" content="An attendance system that combines a sensor, a Raspberry Pi and face recognition, and what its architecture teaches.">
+<meta name="twitter:image" content="https://tanveerhari.com/assets/og-image.png">
+<meta property="article:published_time" content="2018">
+<meta property="article:modified_time" content="2026-10-07">
+<meta property="article:author" content="https://tanveerhari.com/about.html">
+<meta property="article:section" content="Architecture">
+<link rel="icon" href="../assets/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/icon-180.png">
+<link rel="alternate" type="application/rss+xml" title="Tanveer Singh: Writing" href="https://tanveerhari.com/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BlogPosting", "headline": "Edge AI in the physical world", "description": "An attendance system that combines a sensor, a Raspberry Pi and face recognition, and what its architecture teaches.", "url": "https://tanveerhari.com/writing/iot-3-edge-ai-attendance.html", "mainEntityOfPage": "https://tanveerhari.com/writing/iot-3-edge-ai-attendance.html", "image": "https://tanveerhari.com/assets/og-image.png", "author": {"@type": "Person", "@id": "https://tanveerhari.com/#person", "name": "Tanveer Singh", "url": "https://tanveerhari.com/"}, "publisher": {"@type": "Person", "@id": "https://tanveerhari.com/#person", "name": "Tanveer Singh"}, "datePublished": "2018", "dateModified": "2026-10-07", "inLanguage": "en", "articleSection": "Architecture", "isPartOf": {"@type": "CreativeWorkSeries", "name": "Testing and building for the Internet of Things"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://tanveerhari.com/"}, {"@type": "ListItem", "position": 2, "name": "Writing", "item": "https://tanveerhari.com/writing/"}, {"@type": "ListItem", "position": 3, "name": "Edge AI in the physical world", "item": "https://tanveerhari.com/writing/iot-3-edge-ai-attendance.html"}]}]}</script>
 <link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +44,7 @@
 <nav class="nav" aria-label="Main"><a href="../projects.html">Projects</a><a href="../writing/index.html" aria-current="page">Writing</a><a href="../other-stuff.html">Other Stuff</a><a href="../about.html">About</a><a href="../work-with-me.html">Work with me</a></nav>
 </div></header>
 <main id="main" class="wrap">
-<header class="article-head"><p class="eyebrow">Series · Testing and building for the Internet of Things · Part 3 of 3</p><h1>Edge AI in the physical world</h1><p class="lede">An attendance system that combines a sensor, a Raspberry Pi and face recognition, and what its architecture teaches.</p><p class="meta">Oct 2026 · 2 min read</p></header>
+<header class="article-head"><p class="eyebrow">Series · Testing and building for the Internet of Things · Part 3 of 3</p><h1>Edge AI in the physical world</h1><p class="lede">An attendance system that combines a sensor, a Raspberry Pi and face recognition, and what its architecture teaches.</p><p class="meta">2018 · 2 min read</p></header>
 <div class="article-layout"><article class="prose"><p>Testing IoT systems for years leads naturally to building one. A good first problem is attendance at in-person training: tedious to record by hand, easy to get wrong, and a clean fit for IoT and AI together.</p>
 <p>The idea is simple. A proximity sensor notices someone near the camera. A Raspberry Pi with a webcam captures their face. A face-recognition model identifies them. Attendance is marked, a report is compiled and sent, and unauthorised access raises an alert.</p>
 <h2>The architecture</h2>
@@ -30,7 +54,7 @@
 <ul><li><strong>The sensor gates the camera.</strong> Capturing only when someone is present saves power, storage and false matches.</li><li><strong>Recognition sits close to the camera</strong>, so the system stays fast even when the network is not.</li><li><strong>Model operations live on the server</strong>, so training and updating never interrupt capture.</li><li><strong>The API keeps it standalone.</strong> It can serve one training room or plug into a larger system without changing.</li></ul>
 <h2>What comes next</h2>
 <ul><li>Deploy it as a standalone system for training programmes.</li><li>3D face recognition, harder to fool than a photo.</li><li>A mobile app.</li><li>Custom attendance rules, because every organisation counts differently.</li><li>Analytics and insights on top of the records.</li><li>Privacy designed in from the start: what is stored, for how long, and who can see it.</li></ul>
-<p>It is a small system, and a complete one: sense, decide, act, report. The same shape scales to much bigger worlds.</p></article><aside class="margin"><div class="series-box"><p class="eyebrow">The series</p><p class="series-name">Testing and building for the Internet of Things</p><ol><li><a href="iot-1-why-iot-is-hard-to-test.html">Why IoT is hard to test</a></li><li><a href="iot-2-an-end-to-end-test-harness.html">An end-to-end test harness</a></li><li aria-current="page"><a href="iot-3-edge-ai-attendance.html">Edge AI in the physical world</a></li></ol></div></aside></div><nav class="pager" aria-label="Series"><a href="iot-2-an-end-to-end-test-harness.html">← Part 2: An end-to-end test harness</a><a href="index.html#series">All series →</a></nav>
+<p>It is a small system, and a complete one: sense, decide, act, report. The same shape scales to much bigger worlds.</p><p class="edit-note">Drafted in 2018<br>Updated for site in 2026</p></article><aside class="margin"><div class="series-box"><p class="eyebrow">The series</p><p class="series-name">Testing and building for the Internet of Things</p><ol><li><a href="iot-1-why-iot-is-hard-to-test.html">Why IoT is hard to test</a></li><li><a href="iot-2-an-end-to-end-test-harness.html">An end-to-end test harness</a></li><li aria-current="page"><a href="iot-3-edge-ai-attendance.html">Edge AI in the physical world</a></li></ol></div></aside></div><nav class="pager" aria-label="Series"><a href="iot-2-an-end-to-end-test-harness.html">← Part 2: An end-to-end test harness</a><a href="index.html#series">All series →</a></nav>
 </main>
 <footer class="site-footer"><div class="wrap">
 <div class="foot-cols">
@@ -41,6 +65,6 @@
 </div>
 <p class="meta">© 2026 Tanveer Singh · Chandigarh</p>
 </div></footer>
-<script src="../assets/site.js"></script>
+<script src="../assets/site.js" defer></script>
 </body>
 </html>

@@ -31,8 +31,19 @@ other-stuff.html      Stories and poems
 writing/              Essays, architecture pieces and technical series
 poems/                One page per poem, plus an index
 stories/              Memoir chapters
-assets/               style.css, site.js, mark.svg
+assets/               style.css, site.js, mark.svg, og-image.png, icons
+404.html              Not-found page (GitHub Pages serves it automatically)
+sitemap.xml           Every page, for search engines
+robots.txt            Allows all crawlers and points to the sitemap
+feed.xml              RSS feed of the writing
+CNAME                 Custom domain for GitHub Pages
 ```
+
+## SEO
+
+- Every page has a unique title and description, a canonical URL, Open Graph and Twitter card tags with a shared preview image (`assets/og-image.png`), and structured data (JSON-LD): Person and WebSite on the home page, ProfilePage on About, BlogPosting for essays, CreativeWork for poems, and breadcrumbs.
+- Article dates in the structured data are the drafted dates shown on the page.
+- After going live: add the site to Google Search Console and Bing Webmaster Tools, submit `https://tanveerhari.com/sitemap.xml`, and link the site from LinkedIn and GitHub.
 
 ## Run it locally
 

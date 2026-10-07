@@ -4,10 +4,34 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Formal languages are the bridge between programming and intelligence · Tanveer Singh</title>
-<meta name="description" content="Formal languages are the bridge between programming and intelligence">
+<meta name="description" content="In 2023 I wrote a note to myself that formal languages were the bridge between programming and intelligent systems. I was speculating. Three years on, the…">
+<link rel="canonical" href="https://tanveerhari.com/writing/formal-languages-are-the-bridge.html">
+<meta name="author" content="Tanveer Singh">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#F3F6FA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0C1522" media="(prefers-color-scheme: dark)">
+<meta property="og:site_name" content="Tanveer Singh">
 <meta property="og:title" content="Formal languages are the bridge between programming and intelligence · Tanveer Singh">
-<meta property="og:description" content="Formal languages are the bridge between programming and intelligence">
-<meta property="og:type" content="website">
+<meta property="og:description" content="In 2023 I wrote a note to myself that formal languages were the bridge between programming and intelligent systems. I was speculating. Three years on, the…">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://tanveerhari.com/writing/formal-languages-are-the-bridge.html">
+<meta property="og:image" content="https://tanveerhari.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tanveer Singh: software architect, writer, co-founder and CTO of Mviaso">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Formal languages are the bridge between programming and intelligence · Tanveer Singh">
+<meta name="twitter:description" content="In 2023 I wrote a note to myself that formal languages were the bridge between programming and intelligent systems. I was speculating. Three years on, the…">
+<meta name="twitter:image" content="https://tanveerhari.com/assets/og-image.png">
+<meta property="article:published_time" content="2023-01">
+<meta property="article:modified_time" content="2026-10-07">
+<meta property="article:author" content="https://tanveerhari.com/about.html">
+<meta property="article:section" content="Architecture">
+<link rel="icon" href="../assets/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/icon-180.png">
+<link rel="alternate" type="application/rss+xml" title="Tanveer Singh: Writing" href="https://tanveerhari.com/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BlogPosting", "headline": "Formal languages are the bridge between programming and intelligence", "description": "In 2023 I wrote a note to myself that formal languages were the bridge between programming and intelligent systems. I was speculating. Three years on, the…", "url": "https://tanveerhari.com/writing/formal-languages-are-the-bridge.html", "mainEntityOfPage": "https://tanveerhari.com/writing/formal-languages-are-the-bridge.html", "image": "https://tanveerhari.com/assets/og-image.png", "author": {"@type": "Person", "@id": "https://tanveerhari.com/#person", "name": "Tanveer Singh", "url": "https://tanveerhari.com/"}, "publisher": {"@type": "Person", "@id": "https://tanveerhari.com/#person", "name": "Tanveer Singh"}, "datePublished": "2023-01", "dateModified": "2026-10-07", "inLanguage": "en", "articleSection": "Architecture"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://tanveerhari.com/"}, {"@type": "ListItem", "position": 2, "name": "Writing", "item": "https://tanveerhari.com/writing/"}, {"@type": "ListItem", "position": 3, "name": "Formal languages are the bridge between programming and intelligence", "item": "https://tanveerhari.com/writing/formal-languages-are-the-bridge.html"}]}]}</script>
 <link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +44,7 @@
 <nav class="nav" aria-label="Main"><a href="../projects.html">Projects</a><a href="../writing/index.html" aria-current="page">Writing</a><a href="../other-stuff.html">Other Stuff</a><a href="../about.html">About</a><a href="../work-with-me.html">Work with me</a></nav>
 </div></header>
 <main id="main" class="wrap">
-<header class="article-head"><p class="eyebrow">Writing · Architecture</p><h1>Formal languages are the bridge between programming and intelligence</h1><p class="meta">2026 · 2 min read</p></header>
+<header class="article-head"><p class="eyebrow">Writing · Architecture</p><h1>Formal languages are the bridge between programming and intelligence</h1><p class="meta">Jan 2023 · 2 min read</p></header>
 <div class="article-layout"><article class="prose"><p>In 2023 I wrote a note to myself that formal languages were the bridge between programming and intelligent systems. I was speculating. Three years on, the pattern is showing up in real production systems, and the speculation deserves a more careful defense.</p>
 <p>Here's the argument, cleaner than I could state it then:</p>
 <p>LLMs are excellent at generating natural language and code. They are terrible at guaranteeing anything about what they generate. This is a structural property, not a temporary limitation. A probabilistic model cannot make deterministic promises.</p>
@@ -30,7 +54,7 @@
 <p>This is not theoretical. It's what durable AI-assisted systems actually look like when you strip away the marketing. Not "trust the model" and not "avoid the model", but "let the model propose, let the grammar dispose".</p>
 <p>The interesting corollary is that DSLs are now a strategic asset in a way they weren't ten years ago. A well-designed domain-specific language is the interface between an unreliable generator and a system that needs guarantees. If you have one, you can absorb model improvements as they come. If you don't, every improvement to the underlying model requires re-engineering the guardrails.</p>
 <p>For anyone building domain-specific AI products right now, the highest-leverage engineering investment isn't better prompts or fancier retrieval. It's a real DSL that expresses the domain's rules in a form the compiler can enforce.</p>
-<p>Formal languages were always the bridge. It just took the current era of AI to make the bridge load-bearing.</p></article></div><nav class="pager" aria-label="More writing"><a href="deadlines-as-complexity-control.html">← Deadlines as complexity control</a><a href="the-it-jobs-moderation-tax.html">The IT job’s moderation tax →</a></nav>
+<p>Formal languages were always the bridge. It just took the current era of AI to make the bridge load-bearing.</p><p class="edit-note">Drafted in January 2023<br>Updated for site in 2026</p></article></div><nav class="pager" aria-label="More writing"><a href="domain-driven-design-for-creative-computing.html">← Domain-driven design for creative computing</a><a href="mvp-paralysis.html">MVP paralysis when the domain is too broad →</a></nav>
 </main>
 <footer class="site-footer"><div class="wrap">
 <div class="foot-cols">
@@ -41,6 +65,6 @@
 </div>
 <p class="meta">© 2026 Tanveer Singh · Chandigarh</p>
 </div></footer>
-<script src="../assets/site.js"></script>
+<script src="../assets/site.js" defer></script>
 </body>
 </html>

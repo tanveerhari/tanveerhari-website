@@ -4,10 +4,34 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Deadlines as complexity control · Tanveer Singh</title>
-<meta name="description" content="Deadlines as complexity control">
+<meta name="description" content="I once had a task I estimated at two weeks. Over a year later, it hadn&#x27;t shipped. In the post-mortem, the two-week estimate turned out to be correct. What…">
+<link rel="canonical" href="https://tanveerhari.com/writing/deadlines-as-complexity-control.html">
+<meta name="author" content="Tanveer Singh">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#F3F6FA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0C1522" media="(prefers-color-scheme: dark)">
+<meta property="og:site_name" content="Tanveer Singh">
 <meta property="og:title" content="Deadlines as complexity control · Tanveer Singh">
-<meta property="og:description" content="Deadlines as complexity control">
-<meta property="og:type" content="website">
+<meta property="og:description" content="I once had a task I estimated at two weeks. Over a year later, it hadn&#x27;t shipped. In the post-mortem, the two-week estimate turned out to be correct. What…">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://tanveerhari.com/writing/deadlines-as-complexity-control.html">
+<meta property="og:image" content="https://tanveerhari.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tanveer Singh: software architect, writer, co-founder and CTO of Mviaso">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Deadlines as complexity control · Tanveer Singh">
+<meta name="twitter:description" content="I once had a task I estimated at two weeks. Over a year later, it hadn&#x27;t shipped. In the post-mortem, the two-week estimate turned out to be correct. What…">
+<meta name="twitter:image" content="https://tanveerhari.com/assets/og-image.png">
+<meta property="article:published_time" content="2023-01">
+<meta property="article:modified_time" content="2026-10-07">
+<meta property="article:author" content="https://tanveerhari.com/about.html">
+<meta property="article:section" content="Architecture">
+<link rel="icon" href="../assets/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/icon-180.png">
+<link rel="alternate" type="application/rss+xml" title="Tanveer Singh: Writing" href="https://tanveerhari.com/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BlogPosting", "headline": "Deadlines as complexity control", "description": "I once had a task I estimated at two weeks. Over a year later, it hadn't shipped. In the post-mortem, the two-week estimate turned out to be correct. What…", "url": "https://tanveerhari.com/writing/deadlines-as-complexity-control.html", "mainEntityOfPage": "https://tanveerhari.com/writing/deadlines-as-complexity-control.html", "image": "https://tanveerhari.com/assets/og-image.png", "author": {"@type": "Person", "@id": "https://tanveerhari.com/#person", "name": "Tanveer Singh", "url": "https://tanveerhari.com/"}, "publisher": {"@type": "Person", "@id": "https://tanveerhari.com/#person", "name": "Tanveer Singh"}, "datePublished": "2023-01", "dateModified": "2026-10-07", "inLanguage": "en", "articleSection": "Architecture"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://tanveerhari.com/"}, {"@type": "ListItem", "position": 2, "name": "Writing", "item": "https://tanveerhari.com/writing/"}, {"@type": "ListItem", "position": 3, "name": "Deadlines as complexity control", "item": "https://tanveerhari.com/writing/deadlines-as-complexity-control.html"}]}]}</script>
 <link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,14 +44,14 @@
 <nav class="nav" aria-label="Main"><a href="../projects.html">Projects</a><a href="../writing/index.html" aria-current="page">Writing</a><a href="../other-stuff.html">Other Stuff</a><a href="../about.html">About</a><a href="../work-with-me.html">Work with me</a></nav>
 </div></header>
 <main id="main" class="wrap">
-<header class="article-head"><p class="eyebrow">Writing · Architecture</p><h1>Deadlines as complexity control</h1><p class="meta">2026 · 2 min read</p></header>
+<header class="article-head"><p class="eyebrow">Writing · Architecture</p><h1>Deadlines as complexity control</h1><p class="meta">Jan 2023 · 2 min read</p></header>
 <div class="article-layout"><article class="prose"><p>I once had a task I estimated at two weeks. Over a year later, it hadn't shipped. In the post-mortem, the two-week estimate turned out to be correct. What went wrong was that there was no deadline attached to it.</p>
 <p>Without the deadline, the task didn't stay a two-week task. It quietly grew. I explored an unfamiliar language because it "felt like a good fit". I chose an experimental framework because it was "worth learning". I attempted system design in a domain I didn't yet understand, because "we'd need it eventually anyway". Each decision was individually defensible. Together they made a two-week task infinite.</p>
 <p>Complexity is what fills the vacuum when there's no time pressure. This is a design fact, not a discipline problem.</p>
 <p>Deadlines aren't oppression. They're a tool. They force the useful question at every branch: does this decision fit in the time I have? A framework you've never used doesn't fit. A speculative abstraction doesn't fit. A domain you haven't studied doesn't fit. The deadline eliminates them for you, without you needing willpower.</p>
 <p>This matters more now than it did three years ago. In the AI-assisted era, code is nearly free. The old constraint (can I build it in the time available?) has dissolved. The new constraint is (am I building the right thing at all?). The absence of a deadline used to just delay a project. It now enables limitless exploration in every wrong direction, quickly.</p>
 <p>The working rule I use: every task gets a deadline before I touch the keyboard. Two-week tasks are two-week tasks. If the deadline reveals that the task can't fit, that's the useful signal. Either the scope is wrong, or the objective is wrong. Both are cheaper to fix at the whiteboard than after four months of infrastructure work.</p>
-<p>Deadlines are not about pace. They are about scope control by other means.</p></article></div><nav class="pager" aria-label="More writing"><a href="start-with-objectives-not-with-grammars.html">← Start with objectives, not with grammars</a><a href="formal-languages-are-the-bridge.html">Formal languages are the bridge between programming and intelligence →</a></nav>
+<p>Deadlines are not about pace. They are about scope control by other means.</p><p class="edit-note">Drafted in January 2023<br>Updated for site in 2026</p></article></div><nav class="pager" aria-label="More writing"><a href="mvp-paralysis.html">← MVP paralysis when the domain is too broad</a><a href="start-with-objectives-not-with-grammars.html">Start with objectives, not with grammars →</a></nav>
 </main>
 <footer class="site-footer"><div class="wrap">
 <div class="foot-cols">
@@ -38,6 +62,6 @@
 </div>
 <p class="meta">© 2026 Tanveer Singh · Chandigarh</p>
 </div></footer>
-<script src="../assets/site.js"></script>
+<script src="../assets/site.js" defer></script>
 </body>
 </html>
